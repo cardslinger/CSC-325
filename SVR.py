@@ -27,7 +27,7 @@ for file in os.listdir(dir):
     #Convert y to an array so it will fit the model
     y = y['Close'].to_numpy()
     # Fit the data to the model
-    svm_reg = LinearSVR(epsilon=1.5, random_state=23, dual=True, max_iter=100000)
+    svm_reg = LinearSVR(epsilon=0, random_state=23, dual=True, max_iter=100000)
     svm_reg.fit(X, y)
     # Get the prediction and calculate the MSE
     y_pred = svm_reg.predict(X)
