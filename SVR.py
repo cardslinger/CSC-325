@@ -5,6 +5,8 @@ import pandas as pd
 from sklearn.svm import LinearSVR
 from sklearn.metrics import mean_squared_error
 import warnings
+
+# Ignore warnings because the warnings thrown in this case are irrelevant and clutter results
 warnings.filterwarnings("ignore")
 
 dir = "clean/"
