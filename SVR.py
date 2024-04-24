@@ -5,6 +5,7 @@ import pandas as pd
 from sklearn.svm import LinearSVR
 from sklearn.metrics import mean_squared_error
 import warnings
+import time
 
 # Ignore warnings because the warnings thrown in this case are irrelevant and clutter results
 warnings.filterwarnings("ignore")
@@ -13,6 +14,8 @@ dir = "clean/"
 total_mse = 0
 total_stocks = 0
 noisy_stocks = 0
+start_time = time.time()
+end_time = 0
 
 for file in os.listdir(dir):
     noise = ""
@@ -32,17 +35,17 @@ for file in os.listdir(dir):
     # Get the prediction and calculate the MSE
     y_pred = svm_reg.predict(X)
     mse = mean_squared_error(y, y_pred)
-    if mse > 5:
-        noise = "<**noise**> "
-        noisy_stocks += 1
-    else:
-        total_mse += mse
-        total_stocks += 1
+    total_mse += mse
+    total_stocks += 1
     # Print the result
-    print(noise + 'The MSE of the regression task for stock ' + symbol +  ' is:', mse)
+    print('----------------------------------------------------------------------------------')
+    print('The MSE of the regression task for stock ' + symbol.upper() +  ' is:', mse)
+
+end_time = time.time()
+
 #print the average MSE
 average_mse = total_mse / total_stocks
 print('----------------------------------------------------------------------------------')
 print('Over ' + str(total_stocks) + ' total stocks, the average MSE for this model is:', average_mse)
-print(str(noisy_stocks) + ' stocks required more than 100000 iterations to compute and were therefore ignored.')
+print('This model took ' + str(end_time - start_time) + ' seconds to complete the projection.')
 print('----------------------------------------------------------------------------------')
